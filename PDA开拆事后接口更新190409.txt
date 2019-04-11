@@ -1,0 +1,313 @@
+
+1.出口（进口）互封开拆事后查询列邮袋表接口
+
+url:http://100.4.255.136:8081/intproc/unpackevent/queryDomBags
+-------------------------------------------------
+请求样例：
+{
+    "itemId": "EY407406963US",
+    "impExp": "E",
+    "originOrgCode": "",
+    "parcleNo": "","pageNo":1,"pageSize":20}
+-------------------------------------------------
+input parameter:名称，描述，类型，是否必须，示例值
+
+itemId         邮件号   String  选填
+impExp         进口或者出口,枚举,是," 选项为I 或者E"
+originOrgCode  机构代码 String 选填
+parcleNo       总包号   String  选填
+pageNo         分页    int      选填
+pageSize       条数    int      选填
+返回结果：
+
+{
+     "msg": "成功",
+    
+      "obj": "{\"beginIndex\":0,\"columnCount\":7,\"endIndex\":1,\"handleCount\":1,\"indexes\":[0],
+               \"items\":[{\"barCode\":\"43000162000001331107317402210\",\"bizSect\":\"出口台湾快件袋\",\"id\":\"200710\",\"orgCode\":\"43000162\",\"orgName\":\"中国邮政集团公司湖北省国际业务分公司国际邮件处理中心\",\"originName\":\"中国邮政集团公司湖北省国际业务分公司国际邮件处理中心\",\"parcelNo\":\"3174\"}],
+               \"lastPageSize\":1,\"nextIndex\":0,\"orderAsc\":true,\"pageCount\":1,\"pageNo\":1,\"pageSize\":20,\"previousIndex\":0,\"totalCount\":1}",
+ 
+                "resCode": "B00010"
+}
+
+
+
+2.直封开拆事后查询邮袋列表接口
+
+
+url:http://100.4.255.136:8081/intproc/unpackevent/queryOeBags
+-------------------------------------------------
+请求样例：
+{
+    "itemId": "EY407406963US",
+      "originOrgCode": "",
+    "parcleNo": "","pageNo":1,"pageSize":20
+}
+-------------------------------------------------
+input parameter:名称，描述，类型，是否必须，示例值
+
+itemId         邮件号   String  选填
+originOrgCode  机构代码 String 选填
+parcleNo       总包号   String  选填
+pageNo         分页    int      选填
+pageSize       条数    int      选填
+
+返回结果：
+
+{
+     "msg": "成功",
+    
+      "obj": "{\"beginIndex\":0,\"columnCount\":7,\"endIndex\":1,\"handleCount\":1,\"indexes\":[0],
+               \"items\":[{\"barCode\":\"43000162000001331107317402210\",\"bizSect\":\"出口台湾快件袋\",\"id\":\"200710\",\"orgCode\":\"43000162\",\"orgName\":\"中国邮政集团公司湖北省国际业务分公司国际邮件处理中心\",\"originName\":\"中国邮政集团公司湖北省国际业务分公司国际邮件处理中心\",\"parcelNo\":\"3174\"}],
+               \"lastPageSize\":1,\"nextIndex\":0,\"orderAsc\":true,\"pageCount\":1,\"pageNo\":1,\"pageSize\":20,\"previousIndex\":0,\"totalCount\":1}",
+ 
+                "resCode": "B00010"
+}
+
+
+3、-----------整袋删除------------
+url:http://100.4.255.136:8081/intproc/unpackevent/deleteBag
+
+请求参数样例：
+
+{
+    "bagId": "200681",
+ "domOe": "dom"
+,"impExp":"E"}
+-------------------------------------------------
+input parameter:名称，描述，类型，是否必须，示例值
+bagId，  邮袋编号,string,是,"100102005100310012110001025719"
+domOe    直封或者互封，枚举，是  "选项为dom 或者oe"
+"impExp" 互封必填E标识出口，I标识进口， 直封选填
+-------------------------------------------------
+output parameter:名称，描述，类型，是否必须，示例值
+
+{
+    "msg": "成功",
+    "obj": "",
+    "resCode": "B00010"
+}
+
+
+3、-----------根据邮袋获取邮件信息--------
+url:http://100.4.255.136:8081/intproc/unpackevent/itemsInfor
+
+请求参数样例：
+
+{
+    "bagId": "500100035",
+    "impExp": "E",
+    "domOe": "oe"
+}
+-------------------------------------------------
+input parameter:名称，描述，类型，是否必须，示例值
+bagId，  邮袋编号,string,是,"100102005100310012110001025719"
+domOe    直封或者互封，枚举，是  "选项为dom 或者oe"
+-------------------------------------------------
+output parameter:名称，描述，类型，是否必须，示例值
+{
+    "msg": "成功",
+    
+          "data": [
+        
+                  {
+           
+                   "id": 204020,
+  
+                  "bagId": "UN090909092GB",
+
+                             
+                  "item_id": "UN090909092GB",
+            
+                  "dest_nation_code": "AE",
+            
+                  "note": ""
+        
+                    }
+   
+                   ],
+  
+  "resCode": "B00010"
+}
+
+
+4、-----------删除邮件信息--------
+url:http://100.4.255.136:8081/intproc/unpackevent/deleteItems
+
+请求参数样例：
+
+{
+    "bagId": "500100035",
+    "domOe": "oe",
+    "impExp":"I",
+    "itemIds":"XXXXX"
+}
+-------------------------------------------------
+input parameter:名称，描述，类型，是否必须，示例值
+bagId，  邮袋编号,string,是,"100102005100310012110001025719"
+domOe    直封或者互封，枚举，是  "选项为dom 或者oe"
+impExp   为进口或者出口信息 ，互封为必填项，直封为不填项
+itemIds  邮件号，String  为必填项
+-------------------------------------------------
+output parameter:名称，描述，类型，是否必须，示例值
+{
+    "msg": "成功",
+
+      "obj": ""    
+"resCode": "B00010"
+}
+
+
+5、-----------获取互封邮件信息--------
+url:http://100.4.255.136:8081/intproc/unpackevent/getDomItemInfor
+
+请求参数样例：
+
+{
+    "bagId": "200682",
+    "impExp":"I",
+    "itemId":"UN090909092GB"
+}
+-------------------------------------------------
+input parameter:名称，描述，类型，是否必须，示例值
+bagId，  邮袋编号,string,是,"100102005100310012110001025719"
+impExp   为进口或者出口信息 ，互封为必填项，直封为不填项
+itemIds  邮件号，String  为必填项
+-------------------------------------------------
+output parameter:名称，描述，类型，是否必须，示例值
+{
+    "msg": "成功",
+    "data": {
+        "itemId": "UN090909092GB",      
+                                         "reason": "",         
+                                         "bagId": 200682,    
+                                          "transmit": "1",       
+                                          "weight": 0,        
+                                         "destNationCode": "AE",     
+                                         "transportMode": "A",  
+                                          "id": 204020,
+                                          "note“:"备注"，
+                                          “workSect”:"业务种类"，
+                                           “insuredFee” :"34",
+                                            "col7Fee" :"12",
+                                            "col9Fee" :"12",
+                                 },
+    
+                                   
+   "resCode": "B00010"
+}
+
+6、-----------获取直封邮件信息--------
+url:http://100.4.255.136:8081/intproc/unpackevent/getOeItemInfor
+
+请求参数样例：
+
+{
+    "bagId": "500100035",
+    "itemId":"UN090909092GB"
+}
+-------------------------------------------------
+input parameter:名称，描述，类型，是否必须，示例值
+bagId，  邮袋编号,string,是,"100102005100310012110001025719"
+itemId   邮件号，String  为必填项
+-------------------------------------------------
+output parameter:名称，描述，类型，是否必须，示例值
+{
+    "msg": "成功",    
+      "data": {        
+       "itemId": "DSFDSFDS",       
+       "reason": "",
+       "bagId": 500010,        
+        "code": "",        
+        "weight": 0,    
+      "destNationCode": "CN",    
+       "transportMode": "A",        
+       "id": 600006,
+        "note":"备注"，
+      "value": 0，
+      ““workSect”:"业务种类"”
+    },
+     
+  "resCode": "B00010"
+}
+
+7、-----------修改直封邮件信息--------
+url:http://100.4.255.136:8081/intproc/unpackevent/modefyOeItemInfor
+
+请求参数样例：
+
+{
+    "bagId": "500010",
+    "itemId":"DSFDSFDS",
+    "reason": "reason",
+     "code": "code",    
+   "weight": 90,
+     "value": 900,
+     "transportMode":"A",
+     "destNationCode":"NATIONcODE"，
+       "note":"note",
+      “note_cn”：“备注中文名”，
+      “ reason_cn”：“无人接收”
+}
+-------------------------------------------------
+input parameter:名称，描述，类型，是否必须，示例值
+bagId，  邮袋编号,string,是,"100102005100310012110001025719"
+itemId   邮件号，String  为必填项
+reason   退因   String   选填
+weight   重量    float    选填
+value    保价金额 float    选填
+destNationCode 寄达国代码 String  选填
+transportMode  运输方式  String  选填
+code  寄达局代码  String  选填
+note    备注代码
+note_cn 备注中文名
+ reason_cn 退回的详细描述
+-------------------------------------------------
+output parameter:名称，描述，类型，是否必须，示例值
+{
+    "msg": "成功",
+          
+        
+  "resCode": "B00010"
+}
+
+8、-----------修改互封邮件信息--------
+url:http://100.4.255.136:8081/intproc/unpackevent/modifyDomItemInfor
+{
+    "bagId": "200679",
+    "itemId":"HHHHH",
+    "reason": "reason",
+     "code": "code",
+     "weight": 90,
+     "transportMode":"A",
+     "destNationCode":"NA"，
+      “note_cn ”： “备注中文名”，
+      “note”：“备注代码”,
+      " insuredFee":"34",
+       "workSect":"EMS"
+  }
+
+-------------------------------------------------
+input parameter:名称，描述，类型，是否必须，示例值
+bagId，  邮袋编号,string,是,"100102005100310012110001025719"
+itemId   邮件号，String  为必填项
+reason   退因   String   选填
+weight   重量    float    选填
+impExp   进口或者出口 String    必填
+destNationCode 寄达国代码 String  选填
+transportMode  运输方式  String  选填
+code  寄达局代码  String  选填
+note 备注代码
+note_cn 备注中文名
+insuredFee 保价金额
+-------------------------------------------------
+output parameter:名称，描述，类型，是否必须，示例值
+{
+    "msg": "成功",
+          
+        
+  "resCode": "B00010"
+}
+
+
+
